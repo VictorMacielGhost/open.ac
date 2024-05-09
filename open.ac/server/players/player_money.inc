@@ -25,6 +25,12 @@ stock _ac_GetPlayerMoney(playerid)
 	// Check if the player is connected, return their money if they are, otherwise return 0
 	return IsPlayerConnected(playerid) ? _ac_money[playerid] : 0;
 }
+#if defined _ALS_GetPlayerMoney
+    #undef GetPlayerMoney
+#else
+    #define _ALS_GetPlayerMoney
+#endif
+#define GetPlayerMoney _ac_GetPlayerMoney
 
 /**
  * @brief Gives money to a player.
@@ -38,6 +44,12 @@ stock _ac_GivePlayerMoney(playerid, money)
 	// Add the specified amount of money to the player's balance
 	return SetPlayerMoney(playerid, (_ac_money[playerid] + money));
 }
+#if defined _ALS_GivePlayerMoney
+    #undef GivePlayerMoney
+#else
+    #define _ALS_GivePlayerMoney
+#endif
+#define GivePlayerMoney _ac_GivePlayerMoney
 
 /**
  * @brief Resets a player's money.
@@ -50,6 +62,12 @@ stock _ac_ResetPlayerMoney(playerid)
 	// Set the player's money to 0 and return 1 if successful, otherwise return 0
 	return SetPlayerMoney(playerid, 0) ? 1 : 0;
 }
+#if defined _ALS_ResetPlayerMoney
+    #undef ResetPlayerMoney
+#else
+    #define _ALS_ResetPlayerMoney
+#endif
+#define ResetPlayerMoney _ac_ResetPlayerMoney
 
 /**
  * @brief Sets a player's money.
