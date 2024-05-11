@@ -12,27 +12,55 @@
  */
 
 /**
+ * @brief Prints information about which module is loaded and how it will work.
+ */
+public OnGameModeInit()
+{
+	// Call function to print module information.
+	OAC_StartingModulePlayerMoney(); 
+	OAC_StartingModulePlayerHealth();
+	
+	#if defined OAC_OnGameModeInit
+		return OAC_OnGameModeInit();
+	#else
+		return 1;
+	#endif
+}
+
+/**
  * @brief Callback function triggered when a player connects to the server.
  */
 public OnPlayerConnect(playerid)
 {
-    OAC_ResetPlayerMoneyOnConnect(playerid); // Call function to reset player money.
-
-    #if defined OAC_OnPlayerConnect
-        return OAC_OnPlayerConnect(playerid);
-    #else
-        return 1;
-    #endif
+	OAC_ResetPlayerMoneyOnConnect(playerid); // Call function to reset player money.
+	OAC_RemoveVendingMachinesOnConnect(playerid); // Call function to remove vending machines.
+	
+	#if defined OAC_OnPlayerConnect
+		return OAC_OnPlayerConnect(playerid);
+	#else
+		return 1;
+	#endif
 }
 
 // Macro definitions to replace existing functions with the ones provided in this script.
 
-#if defined _ALS_OnPlayerConnect
-    #undef OnPlayerConnect
+#if defined _ALS_OnGameModeInit
+	#undef OnGameModeInit
 #else
-    #define _ALS_OnPlayerConnect
+	#define _ALS_OnGameModeInit
+#endif
+#define OnGameModeInit OAC_OnGameModeInit
+#if defined OAC_OnGameModeInit
+	forward OAC_OnGameModeInit();
+#endif
+
+
+#if defined _ALS_OnPlayerConnect
+	#undef OnPlayerConnect
+#else
+	#define _ALS_OnPlayerConnect
 #endif
 #define OnPlayerConnect OAC_OnPlayerConnect
 #if defined OAC_OnPlayerConnect
-    forward OAC_OnPlayerConnect(playerid);
+	forward OAC_OnPlayerConnect(playerid);
 #endif
