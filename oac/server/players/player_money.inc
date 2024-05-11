@@ -15,13 +15,22 @@
 static oac_money[MAX_PLAYERS]; // Array to store player money
 
 /**
+ * @brief Prints information about which module is loaded and how it will work.
+ */
+OAC_StartingModulePlayerMoney()
+{
+	print("\n[OAC] > Starting Module: ./server/players/player_money");
+	print("[OAC] > Players' money will be stored by the server and not by the client.");
+}
+
+/**
  * @brief Resets player money to zero when they connect to the server.
  * 
  * @param playerid The ID of the player connecting to the server.
  */
 OAC_ResetPlayerMoneyOnConnect(playerid)
 {
-    oac_money[playerid] = 0;
+	oac_money[playerid] = 0;
 }
 
 /**
@@ -32,7 +41,7 @@ OAC_ResetPlayerMoneyOnConnect(playerid)
  */
 stock OAC_GetPlayerMoney(playerid)
 {
-    return IsPlayerConnected(playerid) ? oac_money[playerid] : 0;
+	return IsPlayerConnected(playerid) ? oac_money[playerid] : 0;
 }
 
 /**
@@ -44,13 +53,13 @@ stock OAC_GetPlayerMoney(playerid)
  */
 stock bool:OAC_GivePlayerMoney(playerid, money)
 {
-    if(ResetPlayerMoney(playerid))
-    {
-        oac_money[playerid] += money;
-        GivePlayerMoney(playerid, oac_money[playerid]);
-    }
-    else return false;
-    return true;
+	if(ResetPlayerMoney(playerid))
+	{
+		oac_money[playerid] += money;
+		GivePlayerMoney(playerid, oac_money[playerid]);
+	}
+	else return false;
+	return true;
 }
 
 /**
@@ -61,33 +70,33 @@ stock bool:OAC_GivePlayerMoney(playerid, money)
  */
 stock bool:OAC_ResetPlayerMoney(playerid)
 {
-    if(ResetPlayerMoney(playerid))
-    {
-        oac_money[playerid] = 0;
-    }
-    else return false;
-    return true;
+	if(ResetPlayerMoney(playerid))
+	{
+		oac_money[playerid] = 0;
+	}
+	else return false;
+	return true;
 }
 
 // Macro definitions to replace existing functions with the ones provided in this script
 
 #if defined _ALS_GetPlayerMoney
-    #undef GetPlayerMoney
+	#undef GetPlayerMoney
 #else
-    #define _ALS_GetPlayerMoney
+	#define _ALS_GetPlayerMoney
 #endif
 #define GetPlayerMoney OAC_GetPlayerMoney
 
 #if defined _ALS_GivePlayerMoney
-    #undef GivePlayerMoney
+	#undef GivePlayerMoney
 #else
-    #define _ALS_GivePlayerMoney
+	#define _ALS_GivePlayerMoney
 #endif
 #define GivePlayerMoney OAC_GivePlayerMoney
 
 #if defined _ALS_ResetPlayerMoney
-    #undef ResetPlayerMoney
+	#undef ResetPlayerMoney
 #else
-    #define _ALS_ResetPlayerMoney
+	#define _ALS_ResetPlayerMoney
 #endif
 #define ResetPlayerMoney OAC_ResetPlayerMoney
