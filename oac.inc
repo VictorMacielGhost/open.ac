@@ -32,4 +32,5 @@ main()
 
 // Including other superior modules related to the project.
 #include "oac/server/players/player_money.inc" // Include for player money management module.
+#include "oac/server/players/player_health.inc" // Include for player health management module.
 #include "oac/flow_manager.inc" // Include for control flow manager module.
